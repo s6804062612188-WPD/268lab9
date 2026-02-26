@@ -19,22 +19,18 @@ int main() {
 	printf("Enter your username:\n");	scanf("%s", user);
 	printf("Enter your password:\n");	scanf("%s", pass);
 	
-	checkLogin(user, pass, login[0], password[0]);
+	checkLogin(user, pass, (char*)login, (char*)password);
 }
 
 int checkLogin(char *login, char *passwd, char *logindb, char *passdb) {
-	int id=-1;
 	for (int i=0; i<5; i=i+1) {
 		if ( stringCmp( login, logindb+i*size ) ) {
-			id=i; break;
+			
+			if ( stringCmp( passwd, passdb+i*size) ) {
+				printf("Welcome\n");	return 0;
+			} else break;
+			
 		}
 	}
-	
-	if (id>=0) {
-		if ( stringCmp( passwd, passdb+id*size) ) {
-			printf("Welcome\n"); return 0;
-		}
-	}
-	printf("Incorrect login or password\n");
-	return 0;
+	printf("Incorrect login or password\n");	return 0;
 }
